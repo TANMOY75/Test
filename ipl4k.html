@@ -153,21 +153,39 @@
     jwplayer.key = "uoW6qHjBL3KNudxKVnwa3rt5LlTakbko9e6aQ6VUyKQ=";
 
     jwplayer('demoplayer').setup({
-        file: href="M1.json",
-        height: window.innerHeight,
-        width: window.innerWidth,
-        
-        autostart: true,
-         hlsjsConfig: {
-                liveSyncDurationCount: 0,
-            p2pConfig: {
-                // logLevel: true,
-                live: true,        // set to false in VOD mode
-                // token: YOUR_TOKEN
-                // Other p2pConfig options provided by CDNBye
-            }
-        },
-    });
+	"playlist": [
+		{
+			"sources": [
+				null,
+				{
+					"default": false,
+					"type": "mpd",
+					"file": "https://linearjitp02-playback.astro.com.my/dash-wv/linear/2504/default.mpd",
+					"drm": {
+						"clearkey": {
+							"key": "cd84ed136b0cc71f8ab8cd4d4f6a2e4c",
+							"keyId": "03c2e0af2f8159f9f0ce9b5dbc865f10"
+						}
+					},
+					"label": "1"
+				},
+				{
+					"default": true,
+					"type": "mpd",
+					"file": "https://linearjitp02-playback.astro.com.my/dash-wv/linear/2504/default.mpd",
+					"drm": {
+						"widevine": {},
+						"playready": {}
+					},
+					"label": "2"
+				}
+			]
+		}
+	],
+	"primary": "html5",
+	"hlshtml": true,
+	"autostart": false
+});
 
     jwplayer().on('play', function () {
         jwplayer().hls.p2pEngine.on('stats', function ({totalHTTPDownloaded, totalP2PDownloaded}) {
