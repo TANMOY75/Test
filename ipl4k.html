@@ -153,9 +153,7 @@
     jwplayer.key = "uoW6qHjBL3KNudxKVnwa3rt5LlTakbko9e6aQ6VUyKQ=";
 
     jwplayer('demoplayer').setup({
-	"playlist": [
-		{
-			"sources": [
+        "sources": [
 				null,
 				{
 					"default": false,
@@ -180,12 +178,8 @@
 					"label": "2"
 				}
 			]
-		}
-	],
-	"primary": "html5",
-	"hlshtml": true,
-	"autostart": false
-});
+	    
+    });
 
     jwplayer().on('play', function () {
         jwplayer().hls.p2pEngine.on('stats', function ({totalHTTPDownloaded, totalP2PDownloaded}) {
