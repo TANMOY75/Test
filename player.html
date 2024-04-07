@@ -1,118 +1,182 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <title>TANMOY</title>
-  <link rel="icon" href="https://raw.githubusercontent.com/TANMOY75/Tv/main/A/weblogo.png" type="image/x-icon">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="//content.jwplatform.com/libraries/SAHhwvZq.js"></script>
-  <style>
-    body {
-      margin: 0px;
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" href="https://raw.githubusercontent.com/TANMOY75/Tv/main/A/weblogo.png" type="image/x-icon">
+    <title>IPL 4K</title>
+    <!-- CDNBye Plugin -->
+    <script src="//cdn.jsdelivr.net/npm/cdnbye@latest"></script>
+    <script src="//cdn.jsdelivr.net/gh/teranode/jw-provider@0.0.9/provider.hlsjs.js"></script>
+<!--    <script src="//cdn.jsdelivr.net/npm/cdnbye@latest/dist/jwplayer.provider.hls.js"></script>-->
+    <!-- JW Player Builds -->
+    <script src="//ssl.p.jwpcdn.com/player/v/8.33.2/jwplayer.js"></script>
+
+<style>
+    html {
+      font-family: Poppins;
+      background: #000;
+      margin: 0;
+      padding: 0
     }
 
-    .jwplayer {
-      position: absolute !important;
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 9999;
     }
 
-    .jwplayer.jw-flag-aspect-mode {
-      min-height: 100%;
-      max-height: 100%;
+    .loading-text {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      text-align: center;
+      width: 100%;
+      height: 100px;
+      line-height: 100px;
     }
+
+    .loading-text span {
+      display: inline-block;
+      margin: 0 5px;
+      color: #6a00de;
+      font-family: 'Quattrocento Sans', sans-serif;
+    }
+
+    .loading-text span:nth-child(1) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 0s infinite linear alternate;
+    }
+
+    .loading-text span:nth-child(2) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 0.2s infinite linear alternate;
+    }
+
+    .loading-text span:nth-child(3) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 0.4s infinite linear alternate;
+    }
+
+    .loading-text span:nth-child(4) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 0.6s infinite linear alternate;
+    }
+
+    .loading-text span:nth-child(5) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 0.8s infinite linear alternate;
+    }
+
+    .loading-text span:nth-child(6) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 1s infinite linear alternate;
+    }
+
+    .loading-text span:nth-child(7) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 1.2s infinite linear alternate;
+    }
+
+    .loading-text span:nth-child(8) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 1.4s infinite linear alternate;
+    }
+    
+    .loading-text span:nth-child(9) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 1.6s infinite linear alternate;
+    }
+
+    .loading-text span:nth-child(10) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 1.2s infinite linear alternate;
+    }
+
+    @keyframes blur-text {
+      0% {
+        filter: blur(0px);
+      }
+
+      100% {
+        filter: blur(4px);
+      }
+    }
+
   </style>
+<style>
+  body {
+         margin: 0px
+       }
+       .jwplayer {
+            position: absolute !important
+         }
+       .jwplayer.jw-flag-aspect-mode {
+            min-height: 100%;
+           max-height: 100%
+         }
+         #settingsButton {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #popupMenu {
+      display: none;
+      position: absolute;
+      top: 30px;
+      right: 10px;
+      background: #fff;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+</style>
 </head>
 
 <body>
-  <div id="jwplayerDiv"></div>
-  <script type="text/javascript">
-    // Function to get URL parameters
-    function getParameterByName(name, url) {
-      if (!url) url = window.location.href;
-      name = name.replace(/[\[\]]/g, "\\$&");
-      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-      if (!results) return null;
-      if (!results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
+<center>
+    <div id="demoplayer"></div>
+</center>
+<script>
+    jwplayer.key = "uoW6qHjBL3KNudxKVnwa3rt5LlTakbko9e6aQ6VUyKQ=";
 
-    // Function to fetch JSON data
-    function fetchChannels(callback) {
-      // Replace 'path/to/your/channels.json' with the actual path to your JSON file
-      fetch('channels.json')
-        .then(response => response.json())
-        .then(data => callback(data))
-        .catch(error => console.error('Error fetching JSON:', error));
-    }
-
-    // Define player setup function
-    function setupPlayer(channelData) {
-      // Set up JWPlayer
-      var playerSetup = {
-        file: channelData.url,
-        position: 'bottom',
+    jwplayer('demoplayer').setup({
+        file: 'M1.json',
+        height: window.innerHeight,
+        width: window.innerWidth,
+        
         autostart: true,
-        stretching: "",
-        width: "100%"
-      };
-
-      if (channelData.url.endsWith('.mpd')) {
-        // Set up DRM for DASH with keys if available
-        playerSetup.type = 'dash';
-
-        // Check if Clear Key is available
-        if (channelData.license_key && channelData.license_key2) {
-          playerSetup.drm = {
-            clearkey: {
-              keyId: channelData.license_key,
-              key: channelData.license_key2
+         hlsjsConfig: {
+                liveSyncDurationCount: 0,
+            p2pConfig: {
+                // logLevel: true,
+                live: true,        // set to false in VOD mode
+                // token: YOUR_TOKEN
+                // Other p2pConfig options provided by CDNBye
             }
-          };
-        }
-      } else if (channelData.url.endsWith('.m3u8')) {
-        // Set up DRM for HLS with keys if available
-        playerSetup.type = 'hls';
-
-        // Check if Clear Key is available
-        if (channelData.license_key && channelData.license_key2) {
-          playerSetup.drm = {
-            clearkey: {
-              keyId: channelData.license_key,
-              key: channelData.license_key2
-            }
-          };
-        }
-      } else {
-        // Default to HLS without keys
-        playerSetup.type = 'hls';
-      }
-
-      jwplayer("jwplayerDiv").setup(playerSetup);
-    }
-
-    // Fetch channels data and set up the player
-    fetchChannels(function (channels) {
-      // Get channel name from the URL
-      var channelName = getParameterByName('channel');
-      // Find the channel data in the JSON
-      var channelData = channels.find(channel => decodeURIComponent(channel.name) === channelName);
-
-      if (channelData) {
-        // Set up the player with the channel data
-        setupPlayer(channelData);
-      } else {
-        console.error('Channel not found:', channelName);
-      }
+        },
     });
-  </script>
+
+    jwplayer().on('play', function () {
+        jwplayer().hls.p2pEngine.on('stats', function ({totalHTTPDownloaded, totalP2PDownloaded}) {
+            // get totalHTTPDownloaded and totalP2PDownloaded here
+        })
+    })
+
+</script>
 </body>
 
 </html>
-
-
-  <script disable-devtool-auto='true' src=   
-  'https://cdn.jsdelivr.net/npm/disable-devtool' clear-log='true'   
-  disable-select='true' disable-copy='true' disable-cut='true'   
-  disable-paste='true'></script> 
